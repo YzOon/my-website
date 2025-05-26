@@ -1,1 +1,669 @@
-<h1>موقعي شغال من مجلد docs!</h1>
+
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>هاكنتوش - فحص دعم الجهاز</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cairo&display=swap');
+
+  /* Reset */
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0; 
+    padding: 0;
+    font-family: 'Cairo', sans-serif;
+    background: linear-gradient(135deg, #050605 0%, #1a1a1a 100%);
+    color: #e4c16f;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+  }
+
+  /* Container */
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 60px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 60px;
+  }
+
+  /* Header */
+  header {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 20px 0;
+    border-bottom: 1px solid #3a2e0f;
+    font-weight: 900;
+    font-size: 2.6rem;
+    letter-spacing: 3px;
+    color: #e4c16f;
+    user-select: none;
+    text-transform: uppercase;
+    text-shadow: 0 0 20px #e4c16f88;
+  }
+
+  /* Hero Section */
+  .hero {
+    text-align: center;
+    max-width: 700px;
+  }
+  .hero h1 {
+    font-size: 4rem;
+    margin-bottom: 20px;
+    text-shadow: 0 0 30px #e4c16fcc;
+  }
+  .hero p {
+    font-size: 1.3rem;
+    line-height: 1.6;
+    color: #d1b85b;
+  }
+
+  /* Form Card with 3D style */
+  .card {
+    background: #121212cc;
+    border-radius: 32px;
+    box-shadow:
+      0 30px 60px rgba(228, 193, 111, 0.4),
+      inset 0 0 40px #e4c16f33;
+    padding: 50px 40px;
+    width: 100%;
+    max-width: 480px;
+    transform-style: preserve-3d;
+    transition: transform 0.4s ease-out;
+    will-change: transform;
+  }
+  .card:hover {
+    transform: rotateY(10deg) rotateX(6deg) translateZ(10px);
+    box-shadow:
+      0 40px 70px rgba(228, 193, 111, 0.7),
+      inset 0 0 50px #e4c16f66;
+  }
+
+  label {
+    display: block;
+    font-weight: 700;
+    margin-bottom: 8px;
+    font-size: 1.1rem;
+    color: #e4c16fdd;
+  }
+  select {
+    width: 100%;
+    padding: 14px 18px;
+    border-radius: 18px;
+    border: none;
+    background: #1f1f1f;
+    color: #e4c16f;
+    font-size: 1rem;
+    margin-bottom: 28px;
+    box-shadow:
+      inset 3px 3px 6px #2a2a2a,
+      inset -3px -3px 6px #151515;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  select:hover {
+    background-color: #2a2a2a;
+  }
+  select:focus {
+    outline: 2px solid #e4c16f;
+    background-color: #3b3b3b;
+  }
+
+  button {
+    width: 100%;
+    background: linear-gradient(90deg, #e4c16f, #c7ad3a);
+    font-weight: 900;
+    font-size: 1.4rem;
+    color: #050605;
+    padding: 18px 0;
+    border: none;
+    border-radius: 28px;
+    box-shadow: 0 12px 40px rgba(228, 193, 111, 0.6);
+    cursor: pointer;
+    transition: background 0.35s ease, box-shadow 0.35s ease;
+  }
+  button:hover {
+    background: linear-gradient(90deg, #d4b861, #b69e2d);
+    box-shadow: 0 14px 60px rgba(214, 179, 65, 0.8);
+  }
+  button:active {
+    background: linear-gradient(90deg, #b69e2d, #9a851f);
+  }
+
+  #result {
+    margin-top: 32px;
+    background: #1a1a1a;
+    border-radius: 20px;
+    padding: 28px 24px;
+    font-size: 1.1rem;
+    line-height: 1.5;
+    box-shadow:
+      inset 0 0 20px #e4c16f88;
+    min-height: 110px;
+    white-space: pre-wrap;
+  }
+  #result.green {
+    color: #a3d77a;
+    box-shadow:
+      inset 0 0 30px #6aa032;
+  }
+  #result.red {
+    color: #f4a261;
+    box-shadow:
+      inset 0 0 30px #c1572e;
+  }
+
+  /* Footer */
+  footer {
+    margin-top: 80px;
+    text-align: center;
+    font-weight: 500;
+    font-size: 1rem;
+    color: #886e22cc;
+    user-select: none;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .hero h1 {
+      font-size: 3rem;
+    }
+    .card {
+      padding: 35px 28px;
+      max-width: 90vw;
+    }
+  }
+  /* أيقونات التواصل الاجتماعي */
+  .socials {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    display: flex;
+  direction: ltr !important; /* عزل الاتجاه عن الصفحة */
+    gap: 15px;
+  }
+  .socials a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background-color: #e4c16f;
+    color: #050605;
+    font-size: 22px;
+    text-decoration: none;
+    box-shadow: 0 0 10px #e4c16f;
+    transition: background-color 0.3s ease;
+  }
+  .socials a:hover {
+    background-color: #d7c369;
+  }
+
+  /* responsive */
+  @media (max-width: 650px) {
+    main {
+      width: 95%;
+      padding: 20px 15px;
+    }
+    .banner {
+      font-size: 2rem;
+      height: 180px;
+    }
+  }
+
+
+.lang-toggle {
+   position: fixed;
+  top: 20px;
+  right: 20px; /* استخدم right فقط */
+  direction: ltr; /* يمنع الانعكاس */
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.switch-label {
+  position: relative;
+  display: inline-block;
+  width: 80px;
+  height: 40px;
+  background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
+  border-radius: 40px;
+  box-shadow: 0 0 12px #e4c16f88;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.switch-label .switch-btn {
+  position: absolute;
+  bottom: 4px;
+  left: 4px;
+  
+  background-color: #e4c16f;
+  border-radius: 50%;
+  transition: transform 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+.switch-label .lang-text {
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  color: #e4c16f;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+#langSwitch:checked + .switch-label .switch-btn {
+  transform: translateX(40px);
+}
+
+#langSwitch:checked + .switch-label .lang-text::before {
+  content: 'EN';
+}
+
+.switch-label .lang-text::before {
+  content: 'AR';
+}
+
+
+.lang-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .lang-label {
+    font-size: 16px;
+    font-weight: bold;
+    color: #e4c16f;
+    user-select: none;
+  }
+  .switch-label {
+    position: relative;
+    display: inline-block;
+    width: 70px;
+    height: 34px;
+    background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
+    border-radius: 40px;
+    box-shadow: 0 0 10px #e4c16f99;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  .switch-btn {
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 28px;
+    height: 28px;
+    background-color: #e4c16f;
+    border-radius: 50%;
+    transition: transform 0.3s ease;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  }
+  #langSwitch {
+    display: none;
+  }
+  #langSwitch:checked + .switch-label .switch-btn {
+    transform: translateX(36px);
+  }
+
+</style>
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+/>
+
+
+<div class="lang-toggle">
+  <span class="lang-label">AR</span>
+  <input type="checkbox" id="langSwitch" />
+  <label for="langSwitch" class="switch-label">
+    <span class="switch-btn"></span>
+  </label>
+  <span class="lang-label">EN</span>
+</div>
+
+</head>
+<body>
+
+<div class="container" role="main" aria-label="فحص دعم جهاز الهاكنتوش">
+  <header>هاكنتوش</header>
+
+  <section class="hero" aria-label="مقدمة الموقع">
+    <h1>هل جهازك مدعوم لتشغيل هاكنتوش؟</h1>
+    <p>اختبر بسهولة دعم معالج جهازك وكرت الشاشة لنظام macOS مع هذه الأداة.</p>
+  </section>
+
+  <section class="card" aria-label="نموذج فحص الدعم">
+    <form id="checkForm" novalidate>
+      <label for="cpuType">نوع المعالج</label>
+      <select id="cpuType" aria-required="true" aria-describedby="cpuTypeHelp" name="cpuType">
+        <option value="">اختر نوع المعالج</option>
+        <option value="Intel">Intel</option>
+        <option value="AMD">AMD</option>
+        <option value="NVIDIA">NVIDIA</option>
+      </select>
+
+      <label for="cpuModel">اختيار المعالج</label>
+      <select id="cpuModel" disabled aria-required="true" aria-describedby="cpuModelHelp" name="cpuModel">
+        <option value="">اختر نوع المعالج أولاً</option>
+      </select>
+
+      <label for="gpuModel">اختيار كرت الشاشة</label>
+      <select id="gpuModel" aria-required="true" aria-describedby="gpuModelHelp" name="gpuModel">
+        <option value="">اختر كرت الشاشة</option>
+      </select>
+
+      <button type="submit" id="checkBtn">افحص الدعم</button>
+    </form>
+
+    <div id="result" role="region" aria-live="polite" aria-atomic="true"></div>
+  </section>
+
+  <footer>
+    &copy; 2025 جميع الحقوق محفوظة - Dev Yazan
+  </footer>
+</div>
+
+<!-- روابط التواصل الاجتماعي -->
+<div class="socials" aria-label="روابط التواصل الاجتماعي">
+  <a href="https://instagram.com/yazan.developer" target="_blank" rel="noopener" aria-label="انستجرام">
+    <i class="fab fa-instagram"></i>
+  </a>
+  <a href="https://www.facebook.com/profile.php?id=61575068459811" target="_blank" rel="noopener" aria-label="فيسبوك">
+    <i class="fab fa-facebook-f"></i>
+  </a>
+  <a href="https://t.me/yazan_developer" target="_blank" rel="noopener" aria-label="تليجرام">
+    <i class="fab fa-telegram-plane"></i>
+  </a>
+</div>
+
+<script>
+  const processors = {
+    Intel: [
+      "Intel Core i3 1st Gen",
+      "Intel Core i3 2nd Gen",
+      "Intel Core i3 3rd Gen",
+      "Intel Core i3 4th Gen",
+      "Intel Core i3 5th Gen",
+      "Intel Core i3 6th Gen",
+      "Intel Core i3 7th Gen",
+      "Intel Core i3 8th Gen",
+      "Intel Core i3 9th Gen",
+      "Intel Core i3 10th Gen",
+      "Intel Core i5 1st Gen",
+      "Intel Core i5 2nd Gen",
+      "Intel Core i5 3rd Gen",
+      "Intel Core i5 4th Gen",
+      "Intel Core i5 5th Gen",
+      "Intel Core i5 6th Gen",
+      "Intel Core i5 7th Gen",
+      "Intel Core i5 8th Gen",
+      "Intel Core i5 9th Gen",
+      "Intel Core i5 10th Gen",
+      "Intel Core i7 1st Gen",
+      "Intel Core i7 2nd Gen",
+      "Intel Core i7 3rd Gen",
+      "Intel Core i7 4th Gen",
+      "Intel Core i7 5th Gen",
+      "Intel Core i7 6th Gen",
+      "Intel Core i7 7th Gen",
+      "Intel Core i7 8th Gen",
+      "Intel Core i7 9th Gen",
+      "Intel Core i7 10th Gen",
+      "Intel Core i9 7th Gen",
+      "Intel Core i9 8th Gen",
+      "Intel Core i9 9th Gen",
+      "Intel Core i9 10th Gen"
+    ],
+    AMD: [
+      "AMD Ryzen 3 2000 Series",
+      "AMD Ryzen 3 3000 Series",
+      "AMD Ryzen 5 2000 Series",
+      "AMD Ryzen 5 3000 Series",
+      "AMD Ryzen 7 2000 Series",
+      "AMD Ryzen 7 3000 Series",
+      "AMD Ryzen 9 3000 Series",
+      "AMD Ryzen Threadripper 1000 Series",
+      "AMD Ryzen Threadripper 2000 Series"
+    ],
+    NVIDIA: [
+      "NVIDIA GeForce GTX 660",
+      "NVIDIA GeForce GTX 760",
+      "NVIDIA GeForce GTX 960",
+      "NVIDIA GeForce GTX 1050",
+      "NVIDIA GeForce GTX 1060",
+      "NVIDIA GeForce GTX 1070",
+      "NVIDIA GeForce GTX 1080",
+      "NVIDIA GeForce RTX 2060",
+      "NVIDIA GeForce RTX 2070",
+      "NVIDIA GeForce RTX 2080",
+      "NVIDIA GeForce RTX 3060",
+      "NVIDIA GeForce RTX 3070",
+      "NVIDIA GeForce RTX 3080"
+    ],
+  };
+
+  const gpus = [
+    "Intel HD Graphics 4000",
+    "Intel HD Graphics 5000",
+    "Intel Iris Graphics 5100",
+    "Intel Iris Pro Graphics 6200",
+    "Intel UHD Graphics 600",
+    "Intel UHD Graphics 605",
+    "Intel Iris Plus Graphics 640",
+    "Intel Iris Plus Graphics 650",
+    "Intel Iris Xe Graphics",
+    "AMD Radeon RX 560",
+    "AMD Radeon RX 570",
+    "AMD Radeon RX 580",
+    "AMD Radeon RX 590",
+    "AMD Radeon RX 5500M",
+    "AMD Radeon RX 5600 XT",
+    "AMD Radeon RX 5700 XT",
+    "AMD Radeon Vega 8",
+    "AMD Radeon Vega 11",
+    "AMD Radeon Pro 555X",
+    "AMD Radeon Pro 560X",
+    "AMD Radeon Pro Vega 20",
+  ];
+
+  const cpuTypeSelect = document.getElementById("cpuType");
+  const cpuModelSelect = document.getElementById("cpuModel");
+  const gpuModelSelect = document.getElementById("gpuModel");
+  const resultDiv = document.getElementById("result");
+
+  cpuTypeSelect.addEventListener("change", () => {
+    const selectedType = cpuTypeSelect.value;
+    cpuModelSelect.innerHTML = "";
+    if (processors[selectedType]) {
+      cpuModelSelect.disabled = false;
+      cpuModelSelect.innerHTML = `<option value="">اختر المعالج</option>`;
+      processors[selectedType].forEach((model) => {
+        const option = document.createElement("option");
+        option.value = model;
+        option.textContent = model;
+        cpuModelSelect.appendChild(option);
+      });
+    } else {
+      cpuModelSelect.disabled = true;
+      cpuModelSelect.innerHTML = '<option value="">اختر نوع المعالج أولاً</option>';
+    }
+  });
+
+  gpuModelSelect.innerHTML = '<option value="">اختر كرت الشاشة</option>';
+  gpus.forEach((gpu) => {
+    const option = document.createElement("option");
+    option.value = gpu;
+    option.textContent = gpu;
+    gpuModelSelect.appendChild(option);
+  });
+
+  document.getElementById("checkForm").addEventListener("submit", (e) => {
+    e.preventDefault();
+    const cpuType = cpuTypeSelect.value;
+    const cpuModel = cpuModelSelect.value;
+    const gpuModel = gpuModelSelect.value;
+
+    if (!cpuType) {
+      resultDiv.textContent = "يرجى اختيار نوع المعالج.";
+      resultDiv.className = "red";
+      return;
+    }
+    if (!cpuModel) {
+      resultDiv.textContent = "يرجى اختيار المعالج.";
+      resultDiv.className = "red";
+      return;
+    }
+    if (!gpuModel) {
+      resultDiv.textContent = "يرجى اختيار كرت الشاشة.";
+      resultDiv.className = "red";
+      return;
+    }
+
+    let unsupportedItems = [];
+
+    const intelSupportedGens = [3,4,5,6,7,8,9,10];
+    const intelSupportedGpusPrefixes = ["Intel HD", "Intel Iris", "Intel UHD", "Intel Iris Plus", "Intel Iris Xe"];
+    const amdSupportedModels = processors.AMD; // من القائمة
+    const amdSupportedGpusPrefixes = ["AMD Radeon"];
+    // NVIDIA غير مدعومة رسمياً
+
+    if (cpuType === "Intel") {
+      const genMatch = cpuModel.match(/(\d+)(st|nd|rd|th) Gen/);
+      let gen = 0;
+      if (genMatch) gen = parseInt(genMatch[1], 10);
+      if (!intelSupportedGens.includes(gen)) {
+        unsupportedItems.push(`معالج Intel من الجيل ${gen} غير مدعوم`);
+      }
+      if (!intelSupportedGpusPrefixes.some(prefix => gpuModel.startsWith(prefix))) {
+        unsupportedItems.push(`كرت شاشة Intel من نوع "${gpuModel}" غير مدعوم`);
+      }
+    } else if (cpuType === "AMD") {
+      if (!amdSupportedModels.includes(cpuModel)) {
+        unsupportedItems.push(`معالج AMD "${cpuModel}" غير مدعوم أو يحتاج لتعديلات خاصة`);
+      }
+      if (!amdSupportedGpusPrefixes.some(prefix => gpuModel.startsWith(prefix))) {
+        unsupportedItems.push(`كرت شاشة AMD من نوع "${gpuModel}" غير مدعوم`);
+      }
+    } else if (cpuType === "NVIDIA") {
+      unsupportedItems.push("نيفيديا غير مدعومة رسمياً في هاكنتوش");
+    } else {
+      unsupportedItems.push("نوع المعالج غير معروف");
+    }
+
+    if (unsupportedItems.length === 0) {
+      resultDiv.textContent = "جهازك مدعوم لتشغيل هاكنتوش بشكل جيد مع هذا المعالج وكرت الشاشة.";
+      resultDiv.className = "green";
+    } else {
+      let msg = "جهازك غير مدعوم أو قد تواجه مشاكل مع العناصر التالية:\n";
+      msg += unsupportedItems.join("\n");
+      msg += "\n\nنظام macOS المناسب قد لا يكون مدعوماً أو تحتاج لتعديلات خاصة.";
+      resultDiv.textContent = msg;
+      resultDiv.className = "red";
+    }
+  });
+
+
+// زر تغيير اللغةs
+document.getElementById("langSwitch").addEventListener("change", function () {
+  if (this.checked) {
+    document.documentElement.lang = "en";
+    document.documentElement.dir = "ltr";
+    updateLanguage("en");
+  } else {
+    document.documentElement.lang = "ar";
+    document.documentElement.dir = "rtl";
+    updateLanguage("ar");
+  }
+});
+
+
+const translations = {
+  ar: {
+    title: "هاكنتوش - فحص دعم الجهاز",
+    header: "هاكنتوش",
+    heroTitle: "هل جهازك مدعوم لتشغيل هاكنتوش؟",
+    heroDesc: "اختبر بسهولة دعم معالج جهازك وكرت الشاشة لنظام macOS مع هذه الأداة.",
+    labelCpuType: "نوع المعالج",
+    labelCpuModel: "اختيار المعالج",
+    labelGpuModel: "اختيار كرت الشاشة",
+    btnCheck: "افحص الدعم",
+    footer: "جميع الحقوق محفوظة - Dev Yazan",
+    placeholderCpuType: "اختر نوع المعالج",
+    placeholderCpuModelFirst: "اختر نوع المعالج أولاً",
+    placeholderGpu: "اختر كرت الشاشة",
+    resultUnsupported: "جهازك غير مدعوم أو قد تواجه مشاكل مع العناصر التالية:",
+    resultSupported: "جهازك مدعوم لتشغيل هاكنتوش بشكل جيد مع هذا المعالج وكرت الشاشة.",
+    resultHint: "\n\nنظام macOS المناسب قد لا يكون مدعوماً أو تحتاج لتعديلات خاصة.",
+    errorCpuType: "يرجى اختيار نوع المعالج.",
+    errorCpuModel: "يرجى اختيار المعالج.",
+    errorGpuModel: "يرجى اختيار كرت الشاشة."
+  },
+  en: {
+    title: "Hackintosh - Device Compatibility Check",
+    header: "Hackintosh",
+    heroTitle: "Is your device supported to run Hackintosh?",
+    heroDesc: "Easily test if your CPU and GPU are compatible with macOS using this tool.",
+    labelCpuType: "Processor Type",
+    labelCpuModel: "Select Processor",
+    labelGpuModel: "Select Graphics Card",
+    btnCheck: "Check Compatibility",
+    footer: "All rights reserved - Dev Yazan",
+    placeholderCpuType: "Select processor type",
+    placeholderCpuModelFirst: "Select processor type first",
+    placeholderGpu: "Select graphics card",
+    resultUnsupported: "Your device is not supported or may face issues with the following:",
+    resultSupported: "Your device is fully compatible to run Hackintosh with this CPU and GPU.",
+    resultHint: "\n\nThe macOS version you want may not be fully supported or might require tweaks.",
+    errorCpuType: "Please select a processor type.",
+    errorCpuModel: "Please select a processor.",
+    errorGpuModel: "Please select a graphics card."
+  }
+};
+
+
+function updateLanguage(lang) {
+  const t = translations[lang];
+  document.title = t.title;
+  document.querySelector("header").textContent = t.header;
+  document.querySelector(".hero h1").textContent = t.heroTitle;
+  document.querySelector(".hero p").textContent = t.heroDesc;
+  document.querySelector("label[for='cpuType']").textContent = t.labelCpuType;
+  document.querySelector("label[for='cpuModel']").textContent = t.labelCpuModel;
+  document.querySelector("label[for='gpuModel']").textContent = t.labelGpuModel;
+  document.getElementById("checkBtn").textContent = t.btnCheck;
+  document.querySelector("footer").innerHTML = `&copy; 2025 ${t.footer}`;
+
+  document.querySelector("#cpuType").options[0].textContent = t.placeholderCpuType;
+  document.querySelector("#cpuModel").options[0].textContent = lang === "ar" ? t.placeholderCpuModelFirst : t.placeholderCpuModelFirst;
+  document.querySelector("#gpuModel").options[0].textContent = t.placeholderGpu;
+
+  // حفظ الرسائل لاستخدامها لاحقًا في checkForm
+  window._formText = t;
+}
+
+</script>
+
+</body>
+</html>
