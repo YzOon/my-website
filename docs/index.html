@@ -326,6 +326,35 @@
   #langSwitch:checked + .switch-label .switch-btn {
     transform: translateX(36px);
   }
+.fixed-contact {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  width: 25%;
+  background: #e4c16f;
+  border-radius: 20px;
+  color: #050605;
+  text-align: center;
+  font-weight: bold;
+  padding: 12px 0;
+  font-size: 1.2rem;
+  box-shadow: 0 -2px 8px rgba(0,0,0,0.3);
+  user-select: none;
+  z-index: 10000;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.fixed-contact span {
+  display: inline-block;
+  padding-left: 100%;
+  animation: slideText 10s linear infinite;
+}
+
+@keyframes slideText {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-100%); }
+}
 
 </style>
 <link
@@ -399,106 +428,85 @@
 </div>
 
 <script>
+ 
   const processors = {
     Intel: [
-      "Intel Core i3 1st Gen",
-      "Intel Core i3 2nd Gen",
-      "Intel Core i3 3rd Gen",
-      "Intel Core i3 4th Gen",
-      "Intel Core i3 5th Gen",
-      "Intel Core i3 6th Gen",
-      "Intel Core i3 7th Gen",
-      "Intel Core i3 8th Gen",
-      "Intel Core i3 9th Gen",
-      "Intel Core i3 10th Gen",
-      "Intel Core i5 1st Gen",
-      "Intel Core i5 2nd Gen",
-      "Intel Core i5 3rd Gen",
-      "Intel Core i5 4th Gen",
-      "Intel Core i5 5th Gen",
-      "Intel Core i5 6th Gen",
-      "Intel Core i5 7th Gen",
-      "Intel Core i5 8th Gen",
-      "Intel Core i5 9th Gen",
-      "Intel Core i5 10th Gen",
-      "Intel Core i7 1st Gen",
-      "Intel Core i7 2nd Gen",
-      "Intel Core i7 3rd Gen",
-      "Intel Core i7 4th Gen",
-      "Intel Core i7 5th Gen",
-      "Intel Core i7 6th Gen",
-      "Intel Core i7 7th Gen",
-      "Intel Core i7 8th Gen",
-      "Intel Core i7 9th Gen",
-      "Intel Core i7 10th Gen",
-      "Intel Core i9 7th Gen",
-      "Intel Core i9 8th Gen",
-      "Intel Core i9 9th Gen",
-      "Intel Core i9 10th Gen"
+      "Intel Core i3 1st Gen", "Intel Core i3 2nd Gen", "Intel Core i3 3rd Gen", "Intel Core i3 4th Gen",
+      "Intel Core i3 5th Gen", "Intel Core i3 6th Gen", "Intel Core i3 7th Gen", "Intel Core i3 8th Gen",
+      "Intel Core i3 9th Gen", "Intel Core i3 10th Gen", "Intel Core i5 1st Gen", "Intel Core i5 2nd Gen",
+      "Intel Core i5 3rd Gen", "Intel Core i5 4th Gen", "Intel Core i5 5th Gen", "Intel Core i5 6th Gen",
+      "Intel Core i5 7th Gen", "Intel Core i5 8th Gen", "Intel Core i5 9th Gen", "Intel Core i5 10th Gen",
+      "Intel Core i7 1st Gen", "Intel Core i7 2nd Gen", "Intel Core i7 3rd Gen", "Intel Core i7 4th Gen",
+      "Intel Core i7 5th Gen", "Intel Core i7 6th Gen", "Intel Core i7 7th Gen", "Intel Core i7 8th Gen",
+      "Intel Core i7 9th Gen", "Intel Core i7 10th Gen", "Intel Core i9 7th Gen", "Intel Core i9 8th Gen",
+      "Intel Core i9 9th Gen", "Intel Core i9 10th Gen"
     ],
     AMD: [
-      "AMD Ryzen 3 2000 Series",
-      "AMD Ryzen 3 3000 Series",
-      "AMD Ryzen 5 2000 Series",
-      "AMD Ryzen 5 3000 Series",
-      "AMD Ryzen 7 2000 Series",
-      "AMD Ryzen 7 3000 Series",
-      "AMD Ryzen 9 3000 Series",
-      "AMD Ryzen Threadripper 1000 Series",
-      "AMD Ryzen Threadripper 2000 Series"
+      "AMD Ryzen 3 2000 Series", "AMD Ryzen 3 3000 Series", "AMD Ryzen 5 2000 Series", "AMD Ryzen 5 3000 Series",
+      "AMD Ryzen 7 2000 Series", "AMD Ryzen 7 3000 Series", "AMD Ryzen 9 3000 Series",
+      "AMD Ryzen Threadripper 1000 Series", "AMD Ryzen Threadripper 2000 Series"
     ],
     NVIDIA: [
-      "NVIDIA GeForce GTX 660",
-      "NVIDIA GeForce GTX 760",
-      "NVIDIA GeForce GTX 960",
-      "NVIDIA GeForce GTX 1050",
-      "NVIDIA GeForce GTX 1060",
-      "NVIDIA GeForce GTX 1070",
-      "NVIDIA GeForce GTX 1080",
-      "NVIDIA GeForce RTX 2060",
-      "NVIDIA GeForce RTX 2070",
-      "NVIDIA GeForce RTX 2080",
-      "NVIDIA GeForce RTX 3060",
-      "NVIDIA GeForce RTX 3070",
-      "NVIDIA GeForce RTX 3080"
+      "NVIDIA GeForce GTX 660", "NVIDIA GeForce GTX 760", "NVIDIA GeForce GTX 960", "NVIDIA GeForce GTX 1050",
+      "NVIDIA GeForce GTX 1060", "NVIDIA GeForce GTX 1070", "NVIDIA GeForce GTX 1080",
+      "NVIDIA GeForce RTX 2060", "NVIDIA GeForce RTX 2070", "NVIDIA GeForce RTX 2080",
+      "NVIDIA GeForce RTX 3060", "NVIDIA GeForce RTX 3070", "NVIDIA GeForce RTX 3080"
     ],
   };
 
   const gpus = [
-    "Intel HD Graphics 4000",
-    "Intel HD Graphics 5000",
-    "Intel Iris Graphics 5100",
-    "Intel Iris Pro Graphics 6200",
-    "Intel UHD Graphics 600",
-    "Intel UHD Graphics 605",
-    "Intel Iris Plus Graphics 640",
-    "Intel Iris Plus Graphics 650",
-    "Intel Iris Xe Graphics",
-    "AMD Radeon RX 560",
-    "AMD Radeon RX 570",
-    "AMD Radeon RX 580",
-    "AMD Radeon RX 590",
-    "AMD Radeon RX 5500M",
-    "AMD Radeon RX 5600 XT",
-    "AMD Radeon RX 5700 XT",
-    "AMD Radeon Vega 8",
-    "AMD Radeon Vega 11",
-    "AMD Radeon Pro 555X",
-    "AMD Radeon Pro 560X",
-    "AMD Radeon Pro Vega 20",
+    { name: "Intel HD Graphics 3000",  },
+    { name: "Intel HD Graphics 4000",   },
+    { name: "Intel HD Graphics 4400", },
+    { name: "Intel HD Graphics 4600", },
+    { name: "Intel HD Graphics 5000", },
+    { name: "Intel HD Graphics 5200", },
+    { name: "Intel HD Graphics 5300", },
+    { name: "Intel HD Graphics 5500", },
+    { name: "Intel HD Graphics 6000", },
+    { name: "Intel HD Graphics 610", },
+    { name: "Intel HD Graphics 615", },
+    { name: "Intel UHD Graphics 620", },
+    { name: "Intel UHD Graphics 630", },
+    { name: "Intel Iris Graphics 5100", },
+    { name: "Intel Iris Graphics 6100", },
+    { name: "Intel Iris Plus Graphics 640", },
+    { name: "Intel Iris Plus Graphics 650", },
+    { name: "Intel Iris Plus Graphics 655", },
+    { name: "Intel Iris Xe Graphics", },
+    // AMD GPUs
+  { name: "AMD Radeon RX 560" },
+  { name: "AMD Radeon RX 570" },
+  { name: "AMD Radeon RX 580" },
+  { name: "AMD Radeon RX 590" },
+  { name: "AMD Radeon RX 5600 XT" },
+  { name: "AMD Radeon RX 5700 XT" },
+  { name: "AMD Radeon RX 6600" },
+  { name: "AMD Radeon RX 6600 XT" },
+  { name: "AMD Radeon RX 6700 XT" },
+  { name: "AMD Radeon RX 6750 XT" },
+  { name: "AMD Radeon RX 6800" },
+  { name: "AMD Radeon RX 6800 XT" },
+  { name: "AMD Radeon RX 6900 XT" },
+  { name: "AMD Radeon Pro 555X" },
+  { name: "AMD Radeon Pro 560X" },
+  { name: "AMD Radeon Pro Vega 20" },
   ];
 
   const cpuTypeSelect = document.getElementById("cpuType");
   const cpuModelSelect = document.getElementById("cpuModel");
   const gpuModelSelect = document.getElementById("gpuModel");
   const resultDiv = document.getElementById("result");
+  const langSwitch = document.getElementById("langSwitch");
 
-  cpuTypeSelect.addEventListener("change", () => {
+  const getText = (ar, en) => langSwitch.checked ? en : ar;
+
+  function updateDropdowns() {
     const selectedType = cpuTypeSelect.value;
     cpuModelSelect.innerHTML = "";
     if (processors[selectedType]) {
       cpuModelSelect.disabled = false;
-      cpuModelSelect.innerHTML = `<option value="">اختر المعالج</option>`;
+      cpuModelSelect.innerHTML = `<option value="">${getText("اختر المعالج", "Select CPU Model")}</option>`;
       processors[selectedType].forEach((model) => {
         const option = document.createElement("option");
         option.value = model;
@@ -507,17 +515,27 @@
       });
     } else {
       cpuModelSelect.disabled = true;
-      cpuModelSelect.innerHTML = '<option value="">اختر نوع المعالج أولاً</option>';
+      cpuModelSelect.innerHTML = `<option value="">${getText("اختر نوع المعالج أولاً", "Select CPU type first")}</option>`;
     }
+  }
+
+  function fillGpuDropdown() {
+    gpuModelSelect.innerHTML = `<option value="">${getText("اختر كرت الشاشة", "Select GPU")}</option>`;
+    gpus.forEach((gpu) => {
+      const option = document.createElement("option");
+      option.value = gpu.name;
+      option.textContent = gpu.name + (gpu.note ? ` (${gpu.note})` : "");
+      gpuModelSelect.appendChild(option);
+    });
+  }
+
+  cpuTypeSelect.addEventListener("change", updateDropdowns);
+  langSwitch.addEventListener("change", () => {
+    updateDropdowns();
+    fillGpuDropdown();
   });
 
-  gpuModelSelect.innerHTML = '<option value="">اختر كرت الشاشة</option>';
-  gpus.forEach((gpu) => {
-    const option = document.createElement("option");
-    option.value = gpu;
-    option.textContent = gpu;
-    gpuModelSelect.appendChild(option);
-  });
+  fillGpuDropdown();
 
   document.getElementById("checkForm").addEventListener("submit", (e) => {
     e.preventDefault();
@@ -525,67 +543,51 @@
     const cpuModel = cpuModelSelect.value;
     const gpuModel = gpuModelSelect.value;
 
-    if (!cpuType) {
-      resultDiv.textContent = "يرجى اختيار نوع المعالج.";
-      resultDiv.className = "red";
-      return;
-    }
-    if (!cpuModel) {
-      resultDiv.textContent = "يرجى اختيار المعالج.";
-      resultDiv.className = "red";
-      return;
-    }
-    if (!gpuModel) {
-      resultDiv.textContent = "يرجى اختيار كرت الشاشة.";
+    if (!cpuType || !cpuModel || !gpuModel) {
+      resultDiv.textContent = getText("يرجى ملء جميع الحقول.", "Please complete all fields.");
       resultDiv.className = "red";
       return;
     }
 
     let unsupportedItems = [];
 
-    const intelSupportedGens = [3,4,5,6,7,8,9,10];
-    const intelSupportedGpusPrefixes = ["Intel HD", "Intel Iris", "Intel UHD", "Intel Iris Plus", "Intel Iris Xe"];
-    const amdSupportedModels = processors.AMD; // من القائمة
-    const amdSupportedGpusPrefixes = ["AMD Radeon"];
-    // NVIDIA غير مدعومة رسمياً
+    const intelSupportedGens = [3, 4, 5, 6, 7, 8, 9, 10];
+    const amdSupportedModels = processors.AMD;
+    const supportedGpuNames = gpus.map(g => g.name);
 
     if (cpuType === "Intel") {
       const genMatch = cpuModel.match(/(\d+)(st|nd|rd|th) Gen/);
       let gen = 0;
       if (genMatch) gen = parseInt(genMatch[1], 10);
       if (!intelSupportedGens.includes(gen)) {
-        unsupportedItems.push(`معالج Intel من الجيل ${gen} غير مدعوم`);
+        unsupportedItems.push(getText(`معالج Intel من الجيل ${gen} غير مدعوم.`, `Intel CPU Gen ${gen} is not supported.`));
       }
-      if (!intelSupportedGpusPrefixes.some(prefix => gpuModel.startsWith(prefix))) {
-        unsupportedItems.push(`كرت شاشة Intel من نوع "${gpuModel}" غير مدعوم`);
+      if (!supportedGpuNames.includes(gpuModel)) {
+        unsupportedItems.push(getText(`كرت شاشة "${gpuModel}" غير مدعوم.`, `GPU "${gpuModel}" is not supported.`));
       }
     } else if (cpuType === "AMD") {
       if (!amdSupportedModels.includes(cpuModel)) {
-        unsupportedItems.push(`معالج AMD "${cpuModel}" غير مدعوم أو يحتاج لتعديلات خاصة`);
+        unsupportedItems.push(getText(`معالج AMD "${cpuModel}" غير مدعوم.`, `AMD CPU "${cpuModel}" is not supported.`));
       }
-      if (!amdSupportedGpusPrefixes.some(prefix => gpuModel.startsWith(prefix))) {
-        unsupportedItems.push(`كرت شاشة AMD من نوع "${gpuModel}" غير مدعوم`);
+      if (!supportedGpuNames.includes(gpuModel)) {
+        unsupportedItems.push(getText(`كرت شاشة "${gpuModel}" غير مدعوم.`, `GPU "${gpuModel}" is not supported.`));
       }
     } else if (cpuType === "NVIDIA") {
-      unsupportedItems.push("نيفيديا غير مدعومة رسمياً في هاكنتوش");
-    } else {
-      unsupportedItems.push("نوع المعالج غير معروف");
+      unsupportedItems.push(getText("كروت NVIDIA غير مدعومة رسميًا في هاكنتوش.", "NVIDIA GPUs are not officially supported in Hackintosh."));
     }
 
     if (unsupportedItems.length === 0) {
-      resultDiv.textContent = "جهازك مدعوم لتشغيل هاكنتوش بشكل جيد مع هذا المعالج وكرت الشاشة.";
+      resultDiv.textContent = getText("جهازك مدعوم لتشغيل هاكنتوش.", "Your device is compatible with Hackintosh.");
       resultDiv.className = "green";
     } else {
-      let msg = "جهازك غير مدعوم أو قد تواجه مشاكل مع العناصر التالية:\n";
-      msg += unsupportedItems.join("\n");
-      msg += "\n\nنظام macOS المناسب قد لا يكون مدعوماً أو تحتاج لتعديلات خاصة.";
-      resultDiv.textContent = msg;
+      resultDiv.textContent = unsupportedItems.join("\n");
       resultDiv.className = "red";
     }
   });
 
 
-// زر تغيير اللغةs
+
+// زر تغيير اللغة
 document.getElementById("langSwitch").addEventListener("change", function () {
   if (this.checked) {
     document.documentElement.lang = "en";
@@ -618,7 +620,8 @@ const translations = {
     resultHint: "\n\nنظام macOS المناسب قد لا يكون مدعوماً أو تحتاج لتعديلات خاصة.",
     errorCpuType: "يرجى اختيار نوع المعالج.",
     errorCpuModel: "يرجى اختيار المعالج.",
-    errorGpuModel: "يرجى اختيار كرت الشاشة."
+    errorGpuModel: "يرجى اختيار كرت الشاشة.",
+    contactBtn: "تواصل معنا لتثبيت macOS"
   },
   en: {
     title: "Hackintosh - Device Compatibility Check",
@@ -638,7 +641,8 @@ const translations = {
     resultHint: "\n\nThe macOS version you want may not be fully supported or might require tweaks.",
     errorCpuType: "Please select a processor type.",
     errorCpuModel: "Please select a processor.",
-    errorGpuModel: "Please select a graphics card."
+    errorGpuModel: "Please select a graphics card.",
+    contactBtn: "Contact Us to install macOS"
   }
 };
 
@@ -653,6 +657,8 @@ function updateLanguage(lang) {
   document.querySelector("label[for='cpuModel']").textContent = t.labelCpuModel;
   document.querySelector("label[for='gpuModel']").textContent = t.labelGpuModel;
   document.getElementById("checkBtn").textContent = t.btnCheck;
+  document.getElementById("contactBtn").textContent = t.contactBtn;
+
   document.querySelector("footer").innerHTML = `&copy; 2025 ${t.footer}`;
 
   document.querySelector("#cpuType").options[0].textContent = t.placeholderCpuType;
@@ -661,9 +667,18 @@ function updateLanguage(lang) {
 
   // حفظ الرسائل لاستخدامها لاحقًا في checkForm
   window._formText = t;
-}
 
+
+    // const angSwitch = document.getElementById("langSwitch");
+  const contactBtn = document.getElementById("contactBtn");
+
+  // دالة لتحديث اللغة والنص
+  }
 </script>
+<input type="checkbox" id="langSwitch"> 
 
+<div class="fixed-contact" id="contactBtn">تواصل معنا لتثبيت macOS</div>
+
+    
 </body>
 </html>
