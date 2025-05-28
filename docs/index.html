@@ -351,23 +351,38 @@
   0% { transform: translateX(0); }
   100% { transform: translateX(-100%); }
 }
- .Dev{
-   position: absolute;
-  bottom: 0px;
-  right: 180px;
-  justify-content: center;
-  align-items: center;
-  width: 25%;
-  color: #e4c16f;
-  text-align: center;
-  font-weight: bold;
-  padding: 12px 0;
-  font-size: 1rem;
+ .Dev {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: 900;
+  font-size: 1.8rem;
+  color: #e4c16f; /* لون ذهبي */
+  text-shadow:
+    0 0 5px #e4c16f,
+    0 0 10px #e4c16f,
+    0 0 15px #bfa45a,
+    0 0 20px #bfa45a;
+  letter-spacing: 2px;
   user-select: none;
-  z-index: 10000;
-  overflow: hidden;
-  white-space: nowrap;
-  }
+  z-index: 1000;
+  background: rgba(18, 18, 18, 0.8);
+  padding: 8px 16px;
+  border-radius: 12px;
+  box-shadow:
+    0 4px 10px rgba(228, 193, 111, 0.6),
+    inset 0 0 8px #e4c16f99;
+  transition: transform 0.3s ease;
+  cursor: default;
+}
+
+.Dev:hover {
+  transform: scale(1.05);
+  box-shadow:
+    0 6px 14px rgba(228, 193, 111, 0.9),
+    inset 0 0 12px #e4c16fff;
+}
 </style>
 <link
   rel="stylesheet"
@@ -394,7 +409,7 @@
     <h1>هل جهازك مدعوم لتشغيل هاكنتوش؟</h1>
     <p>اختبر بسهولة دعم معالج جهازك وكرت الشاشة لنظام macOS مع هذه الأداة.</p>
   </section>
-
+<div class="Dev">Dev Yazan</div>
   <section class="card" aria-label="نموذج فحص الدعم">
     <form id="checkForm" novalidate>
       <label for="cpuType">نوع المعالج</label>
@@ -419,7 +434,7 @@
     </form>
 
     <div id="result" role="region" aria-live="polite" aria-atomic="true"></div>
-    <div class="Dev">Dev Yazan</div>
+    
   </section>
 
   <footer>
